@@ -33,14 +33,14 @@
 		</javaModelGenerator>
 		
 		<!-- 生成mapxml文件 -->
-		<sqlMapGenerator targetPackage="com.ning.webapp.user.data"
-			targetProject="src/main/java" >
+		<sqlMapGenerator targetPackage="com.ning.webapp.user.dao"
+			targetProject="src/main/resources" >
 			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		
 		<!-- 生成mapxml对应client，也就是接口dao -->	
-		<javaClientGenerator targetPackage="com.ning.webapp.user.data"
+		<javaClientGenerator targetPackage="com.ning.webapp.user.dao"
 			targetProject="src/main/java" type="XMLMAPPER" >
 			<!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
 			<property name="enableSubPackages" value="false" />
