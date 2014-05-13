@@ -3,6 +3,7 @@ package com.ning.webapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +12,35 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ning.webapp.user.model.UserEntity;
+import com.ning.webapp.user.services.IUserService;
+import com.ning.webapp.user.model.UserEntity;
 
 @Controller  //类似Struts的Action
 @RequestMapping("/user")
 public class UserController {
+	
+	private IUserService userService;
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+	@Autowired
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
 
 	@RequestMapping("/{id}/index.do") // 请求url地址映射，类似Struts的action-mapping
 	public ModelAndView testLogin(@PathVariable int id, HttpServletRequest request) {
-		return new ModelAndView(new RedirectView("../../index.jsp"));
+		UserEntity u = userService.getUserById(id);
+		if(u.getName().equalsIgnoreCase("nxiao"))
+		{
+			return new ModelAndView(new RedirectView("../../index.jsp"));
+		}
+		else
+		{
+			return new ModelAndView(new RedirectView(u.getName()));
+		}
 	}
 
 	/*
