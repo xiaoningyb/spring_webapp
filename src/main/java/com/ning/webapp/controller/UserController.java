@@ -1,6 +1,9 @@
 package com.ning.webapp.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -41,6 +45,19 @@ public class UserController {
 		{
 			return new ModelAndView(new RedirectView(u.getName()));
 		}
+	}
+	
+	@RequestMapping("/users.do") // 请求url地址映射，类似Struts的action-mapping
+	@ResponseBody
+	public Object testAjax(HttpServletRequest request) {
+		UserEntity u1 = userService.getUserById(1);
+		UserEntity u2 = userService.getUserById(2);
+		UserEntity u3 = userService.getUserById(3);
+		List<String> list=new ArrayList<String>(); 
+		list.add(u1.getName());
+		list.add(u2.getName());
+		list.add(u3.getName());
+		return list;  
 	}
 
 	/*
