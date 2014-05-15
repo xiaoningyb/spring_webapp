@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ning.webapp.user.model.UserEntity;
 import com.ning.webapp.user.services.IUserService;
@@ -59,6 +62,30 @@ public class UserController {
 		list.add(u3.getName());
 		return list;  
 	}
+	
+	@RequestMapping("/hello.do")
+    public String sayHello(ModelMap map) {
+        System.out.println("say Hello ……");
+        UserEntity u = userService.getUserById(1);
+        map.addAttribute("name", u.getName());
+        return "/hello.ftl";
+    }
+    
+    @RequestMapping("/hi.do")
+    public String sayHi(ModelMap map) {
+        System.out.println("say hi ……");
+        UserEntity u = userService.getUserById(2);
+        map.put("name", u.getName());
+        return "/hi.ftl";
+    }
+    
+    @RequestMapping("/jsp.do")
+    public String jspRequest(ModelMap map) {
+        System.out.println("jspRequest ……");
+        UserEntity u = userService.getUserById(3);
+        map.put("name", u.getName());
+        return "/temp";
+    }
 
 	/*
 	@RequestMapping("/ning-webapp/login2.do")

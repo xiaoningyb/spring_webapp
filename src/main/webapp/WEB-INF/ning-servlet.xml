@@ -30,5 +30,43 @@
 	<!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:suffix=".jsp" />
 	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" /> 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="utf-8" />
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    </bean> 
+    
+    <!-- 设置freeMarker的配置文件路径 -->
+	<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	    <property name="location" value="/WEB-INF/freemarker.properties"/>
+	</bean>
+	 
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	    <!--property name="freemarkerSettings" ref="freemarkerConfiguration"/-->
+	    <property name="templateLoaderPath">
+	        <value>/WEB-INF/ftl/</value>
+	    </property>
+	    <property name="freemarkerVariables">
+	        <map>
+	            <entry key="xml_escape" value-ref="fmXmlEscape" />
+	        </map>
+	    </property>
+	</bean>
+	 
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+	 
+	<!-- 配置freeMarker视图解析器 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+	    <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+	    <property name="viewNames" value="*.ftl"/>
+	    <property name="contentType" value="text/html; charset=utf-8"/>
+	    <property name="cache" value="true" />
+	    <property name="prefix" value="" />
+	    <property name="suffix" value="" />
+	    <property name="order" value="2"/>
+	</bean>
+	
 </beans>
