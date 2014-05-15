@@ -1,4 +1,6 @@
-springmvc+freemaker+mybatis webapp project
+springmvc+freemaker+mybatis 
+webapp project
+
 =============
 
 1. generatorConfig.xmlfordatabase
@@ -13,6 +15,7 @@ springmvc+freemaker+mybatis webapp project
 
 6.mvn jetty:run （9080）
 
+=============
 postgresql DB
 init:
 /opt/local/lib/postgresql91/bin/initdb ./data
